@@ -3,6 +3,7 @@ package com.example.listacompra_rodrigorojasredondo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,7 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         repository = ShoppingListRepository(this)
 
-
+        
 
         setContent {
             ShoppingListScreen(repository)
@@ -48,18 +49,24 @@ fun ShoppingListScreen(repository: ShoppingListRepository) {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Lista de la Compra: ${items.size} productos = $totalPrice €",
-                        fontSize = 16.sp // Ajuste del tamaño de la letra
+                        text = "Productos: ${items.size} productos = $totalPrice €",
+                        fontSize = 16.sp,
+                        color = Color.White // Texto en blanco
                     )
-                }
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.Black // Fondo del TopAppBar negro
+                )
             )
-        }
+        },
+        containerColor = Color.Black // Fondo de la pantalla en negro
     ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp)
+                .background(Color.Black) // Fondo de la columna en negro
         ) {
             Box(modifier = Modifier.weight(1f)) {
                 LazyColumn {
@@ -67,7 +74,10 @@ fun ShoppingListScreen(repository: ShoppingListRepository) {
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color.DarkGray // Fondo de las tarjetas en gris oscuro
+                            )
                         ) {
                             Row(
                                 modifier = Modifier
@@ -75,12 +85,15 @@ fun ShoppingListScreen(repository: ShoppingListRepository) {
                                     .padding(16.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Text(text = "${item.name} - ${item.quantity} - ${item.price}")
+                                Text(
+                                    text = "${item.name} - ${item.quantity} - ${item.price}",
+                                    color = Color.White // Texto en blanco
+                                )
                                 IconButton(onClick = {
                                     repository.removeItem(item.id)
                                     items = repository.getItems()
                                 }) {
-                                    Icon(Icons.Default.Delete, contentDescription = "Eliminar")
+                                    Icon(Icons.Default.Delete, contentDescription = "Eliminar", tint = Color.White)
                                 }
                             }
                         }
@@ -97,22 +110,46 @@ fun ShoppingListScreen(repository: ShoppingListRepository) {
                 TextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Nombre") }
+                    label = { Text("Nombre", color = Color.White) },
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = Color.DarkGray,
+                        cursorColor = Color.White,
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedIndicatorColor = Color.White,
+                        unfocusedLabelColor = Color.LightGray,
+                        focusedLabelColor = Color.White
+                    )
                 )
                 TextField(
                     value = quantity,
                     onValueChange = { quantity = it },
-                    label = { Text("Cantidad (opcional)") }
+                    label = { Text("Cantidad (opcional)", color = Color.White) },
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = Color.DarkGray,
+                        cursorColor = Color.White,
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedIndicatorColor = Color.White,
+                        unfocusedLabelColor = Color.LightGray,
+                        focusedLabelColor = Color.White
+                    )
                 )
                 TextField(
                     value = price,
                     onValueChange = { price = it },
-                    label = { Text("Precio (opcional)") }
+                    label = { Text("Precio (opcional)", color = Color.White) },
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = Color.DarkGray,
+                        cursorColor = Color.White,
+                        unfocusedIndicatorColor = Color.LightGray,
+                        focusedIndicatorColor = Color.White,
+                        unfocusedLabelColor = Color.LightGray,
+                        focusedLabelColor = Color.White
+                    )
                 )
                 if (isError) {
                     Text(
                         text = "Por favor, introduce un nombre válido",
-                        color = MaterialTheme.colorScheme.error
+                        color = Color.Red // Mensaje de error en rojo para destacar
                     )
                 }
                 Button(
@@ -131,7 +168,11 @@ fun ShoppingListScreen(repository: ShoppingListRepository) {
                             isError = true
                         }
                     },
-                    modifier = Modifier.padding(top = 8.dp)
+                    modifier = Modifier.padding(top = 8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.DarkGray,
+                        contentColor = Color.White
+                    )
                 ) {
                     Text("Añadir")
                 }
