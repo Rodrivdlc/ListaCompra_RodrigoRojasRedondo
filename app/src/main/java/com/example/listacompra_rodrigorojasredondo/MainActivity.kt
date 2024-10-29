@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     private lateinit var repository: ShoppingListRepository
@@ -22,9 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         repository = ShoppingListRepository(this)
 
-        // Add items to the list
-        repository.addItem(ShoppingItem(0, "Apples", 5, 1.0))
-        repository.addItem(ShoppingItem(0, "Bananas", 3, 0.5))
+
 
         setContent {
             ShoppingListScreen(repository)
@@ -35,17 +34,24 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ShoppingListScreen(repository: ShoppingListRepository) {
-    val context = LocalContext.current
     var items by remember { mutableStateOf(repository.getItems()) }
     var name by remember { mutableStateOf("") }
     var quantity by remember { mutableStateOf("") }
     var price by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
 
+    // Calcular el precio total de los productos
+    val totalPrice = items.sumOf { it.price * it.quantity }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Lista de Productos: ${items.size} productos") }
+                title = {
+                    Text(
+                        text = "Lista de la Compra: ${items.size} productos = $totalPrice €",
+                        fontSize = 16.sp // Ajuste del tamaño de la letra
+                    )
+                }
             )
         }
     ) { padding ->
@@ -96,25 +102,25 @@ fun ShoppingListScreen(repository: ShoppingListRepository) {
                 TextField(
                     value = quantity,
                     onValueChange = { quantity = it },
-                    label = { Text("Cantidad") }
+                    label = { Text("Cantidad (opcional)") }
                 )
                 TextField(
                     value = price,
                     onValueChange = { price = it },
-                    label = { Text("Precio") }
+                    label = { Text("Precio (opcional)") }
                 )
                 if (isError) {
                     Text(
-                        text = "Por favor, introduce datos válidos para nombre, cantidad y precio",
+                        text = "Por favor, introduce un nombre válido",
                         color = MaterialTheme.colorScheme.error
                     )
                 }
                 Button(
                     onClick = {
-                        val quantityInt = quantity.toIntOrNull() ?: -1
-                        val priceDouble = price.toDoubleOrNull() ?: -1.0
+                        val quantityInt = quantity.toIntOrNull() ?: 0
+                        val priceDouble = price.toDoubleOrNull() ?: 0.0
 
-                        if (name.isNotBlank() && quantityInt > 0 && priceDouble > 0.0) {
+                        if (name.isNotBlank()) {
                             repository.addItem(ShoppingItem(0, name, quantityInt, priceDouble))
                             items = repository.getItems()
                             name = ""
