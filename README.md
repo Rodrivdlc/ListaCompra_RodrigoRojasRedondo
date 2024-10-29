@@ -1,13 +1,13 @@
-#Lista de Compras
+# ListaCompra_RodrigoRojasRedondo
 ## Esta es la segunda aplicación de tres que incluye el ejercicio Prueba de Programación Android 1:
-
 Lista compra:
 https://github.com/Rodrivdlc/ListaCompra_RodrigoRojasRedondo.git
 
 
 Esta es una aplicación de lista de compras desarrollada en Android utilizando Kotlin y Jetpack Compose. La aplicación permite a los usuarios agregar, ver y eliminar productos de una lista de compras, con detalles opcionales como cantidad y precio. La aplicación almacena los datos en una base de datos SQLite local para persistencia.
 
-Características
+## Características
+
 Agregar productos a la lista con nombre (obligatorio), cantidad y precio (opcional).
 Visualizar la lista de productos con la cantidad y el precio de cada producto.
 Eliminar productos de la lista con un simple botón.
@@ -24,7 +24,7 @@ ShoppingListRepository.kt: Gestiona las operaciones CRUD en la base de datos SQL
 ShoppingListDatabaseHelper.kt: Clase que define y configura la base de datos SQLite.
 ShoppingItem.kt: Clase de datos para representar un producto en la lista de compras.
 
-Uso de SQLite
+## Uso de SQLite
 La aplicación utiliza SQLite para almacenar la lista de productos de forma persistente. Cada producto se guarda en una tabla SQLite con los siguientes campos:
 
 id: ID único del producto (Primary Key).
