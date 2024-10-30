@@ -1,6 +1,6 @@
 # ListaCompra_RodrigoRojasRedondo
 ## Esta es la segunda aplicación de tres que incluye el ejercicio Prueba de Programación Android 1:
-Lista compra:
+ListaCompra:
 https://github.com/Rodrivdlc/ListaCompra_RodrigoRojasRedondo.git
 
 
