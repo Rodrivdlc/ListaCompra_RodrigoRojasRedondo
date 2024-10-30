@@ -1,7 +1,15 @@
 # ListaCompra_RodrigoRojasRedondo
-## Esta es la segunda aplicación de tres que incluye el ejercicio Prueba de Programación Android 1:
+
 ListaCompra:
 https://github.com/Rodrivdlc/ListaCompra_RodrigoRojasRedondo.git
+
+## Esta es la segunda aplicación de tres que incluye el ejercicio Prueba de Programación Android 1:
+
+otros ejercicios: 
+
+MisTareas1: https://github.com/Rodrivdlc/MisTareas1_RodrigoRojasRedondo.git
+
+MisTareas2: https://github.com/Rodrivdlc/MisTareas2_RodrigoRojasRedondo.git
 
 
 Esta es una aplicación de lista de compras desarrollada en Android utilizando Kotlin y Jetpack Compose. La aplicación permite a los usuarios agregar, ver y eliminar productos de una lista de compras, con detalles opcionales como cantidad y precio. La aplicación almacena los datos en una base de datos SQLite local para persistencia.
